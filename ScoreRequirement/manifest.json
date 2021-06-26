@@ -1,0 +1,14 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "ScoreRequirement",
+  "name": "ScoreRequirement",
+  "author": "Raine Aya",
+  "version": "0.0.1",
+  "description": "This mod allows you to disable score submission to ScoreSaber with set parameters",
+  "gameVersion": "1.16.2",
+  "dependsOn": {
+    "BSIPA": "^4.1.6",
+    "BeatSaberMarkupLanguage": "^1.5.3",
+    "SiraUtil": "^2.5.5"
+  }
+}
