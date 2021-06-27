@@ -1,15 +1,24 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-    <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' background='round-rect-panel' pad='2'>
+    <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad='2'>   
+        <horizontal pad-top="8" pad-bottom="2" pad-left="10">
+            <toggle-setting text="Enable ScoreRequirement" />
+        </horizontal>
+        <horizontal preferred-width="85" pad-bottom="20">
+            <vertical pad-left="20" preferred-width="75" child-expand-width="false">
+                <toggle-setting text="Combo Requirement" />
+                <toggle-setting text="Combo Break Limit" />
+                <toggle-setting text="Accuracy Requirement" />
+                <toggle-setting text="Pause Limit" />
+                <toggle-setting text="Max Miss Count" />
+            </vertical>
         
-        <toggle-setting text="Enable ScoreRequirement" />
-        
-        <slider-setting text="Pause Limit" increment="1" integer-only="true" />
-        <slider-setting text="Accuracy Requirement" />
-        <slider-setting text="Combo Requirement" />
-        <slider-setting text="Max Miss Count" />
-        
+            <vertical pad-right="20">
+                <slider-setting text=" " increment="1" integer-only="true" />
+                <slider-setting text=" " increment="1" integer-only="true" />
+                <slider-setting text=" " increment="0.01" min="0" max="1" />
+                <slider-setting text=" " increment="1" integer-only="true" />
+                <slider-setting text=" " increment="1" integer-only="true" />
+            </vertical>
+        </horizontal>
     </vertical>
-    <horizontal spacing='50'/>
-    <horizontal horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad='2'>
-    </horizontal>
 </bg>
