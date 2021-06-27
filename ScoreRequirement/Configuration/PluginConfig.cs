@@ -4,7 +4,7 @@ using IPA.Config.Stores;
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace ScoreRequirement.Configuration
 {
-    internal class PluginConfig
+    public class PluginConfig
     {
         public virtual bool isSREnabled { get; set; }
         public virtual bool isAccRequirementEnabled { get; set; }

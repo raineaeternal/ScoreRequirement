@@ -1,7 +1,10 @@
 ﻿using IPA;
 using SiraUtil.Zenject;
+using Zenject;
 using IPALogger = IPA.Logging.Logger;
 using IPA.Config.Stores;
+using ScoreRequirement.Configuration;
+using ScoreRequirement.Installers;
 using Config = IPA.Config.Config;
 
 namespace ScoreRequirement
@@ -10,9 +13,9 @@ namespace ScoreRequirement
     public class Plugin
     {
         [Init]
-        public void Init(IPALogger logger, Zenjector zenjector, Config config)
+        public void Init(Zenjector zenjector, Config config, IPALogger logger)
         {
-            zenjector.OnMenu<ModelSelectViewInstaller>().WithParameters(logger, config.Generated<PluginConfig>());
+            zenjector.OnApp<SRMenuInstaller>().WithParameters(logger, config.Generated<PluginConfig>());
         }
 
         [OnEnable]
