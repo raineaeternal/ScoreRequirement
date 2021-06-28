@@ -5,19 +5,19 @@
         </horizontal>
         <horizontal preferred-width="85" pad-bottom="20">
             <vertical pad-left="20" preferred-width="75" child-expand-width="false">
-                <toggle-setting text="Combo Requirement" />
-                <toggle-setting text="Combo Break Limit" />
-                <toggle-setting text="Accuracy Requirement" />
-                <toggle-setting text="Pause Limit" />
-                <toggle-setting text="Max Miss Count" />
+                <toggle-setting text="Combo Requirement" id="comboRequirement" />
+                <toggle-setting text="Combo Break Limit" id="breakRequirement" />
+                <toggle-setting text="Accuracy Requirement" id="accRequirement" />
+                <toggle-setting text="Pause Limit" id="pauseLimit" />
+                <toggle-setting text="Max Miss Count" id="missCount" />
             </vertical>
         
             <vertical pad-right="20">
-                <slider-setting text=" " increment="1" integer-only="true" />
-                <slider-setting text=" " increment="1" integer-only="true" />
-                <slider-setting text=" " increment="0.01" min="0" max="1" />
-                <slider-setting text=" " increment="1" integer-only="true" />
-                <slider-setting text=" " increment="1" integer-only="true" />
+                <increment-setting text=" " increment="1" integer-only="true" id="comboRequirementIncrement" />
+                <increment-setting text=" " increment="1" integer-only="true" id="breakRequirementIncrement" />
+                <increment-setting text=" " increment="0.01" min="0" max="1" id="accRequirementIncrement" />
+                <increment-setting text=" " increment="1" integer-only="true" id="pauseLimitIncrement" />
+                <increment-setting text=" " increment="1" integer-only="true" id="missCountIncrement" />
             </vertical>
         </horizontal>
     </vertical>
