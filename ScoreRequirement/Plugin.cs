@@ -12,6 +12,7 @@ namespace ScoreRequirement
     [Plugin(RuntimeOptions.DynamicInit)]
     public class Plugin
     {
+        // This zenjects the MenuInstaller to the BSML Mod Tab
         [Init]
         public void Init(Zenjector zenjector, Config config, IPALogger logger)
         {
