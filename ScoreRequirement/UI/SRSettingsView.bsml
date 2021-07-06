@@ -1,50 +1,50 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
     <vertical horizontal-fit='PreferredSize' vertical-fit='PreferredSize' pad='2' pad-right="18">   
         <horizontal preferred-width="25" pad-top="8" pad-bottom="2" pad-left="15">
-            <toggle-setting text="Enable ScoreRequirement" />
+            <toggle-setting text="Enable ScoreRequirement" value="srEnabled" bind-value="true" />
         </horizontal>
         <horizontal preferred-width="90" pad-bottom="20" pad-right="10">
             <vertical pad-left="30" preferred-width="80" child-expand-width="false">
-                <toggle-setting text="Combo Requirement" id="comboRequirement" />
-                <toggle-setting text="Combo Break Limit" id="breakRequirement" />
-                <toggle-setting text="Accuracy Requirement" id="accRequirement" />
-                <toggle-setting text="Pause Limit" id="pauseLimit" />
-                <toggle-setting text="Max Miss Count" id="missCount" />
+                <toggle-setting text="Combo Requirement" value="comboRequirement" />
+                <toggle-setting text="Combo Break Limit" value="breakRequirement" />
+                <toggle-setting text="Accuracy Requirement" value="accRequirement" />
+                <toggle-setting text="Pause Limit" value="pauseLimit" />
+                <toggle-setting text="Max Miss Count" value="missCount" />
             </vertical>
         
             <vertical pad-left="15" child-expand-width="false">
                 <horizontal child-expand-width="true">
                     <button text="&lt;" pad-left="40" direction="left" id="leftButton" />
                     <horizontal preferred-width="40" child-expand-width="false">
-                        <slider-setting text="" pad-left="2" increment="1" min="0" data="" integer-only="true" id="comboRequirementSlider" />
+                        <slider-setting text="" pad-left="2" increment="1" min="0" data="" integer-only="true" value="comboRequirementSlider" />
                     </horizontal>
                     <button text="&gt;" direction="right" id="rightButton" />
                 </horizontal>
                 <horizontal child-expand-width="true">
                     <button text="&lt;" pad-left="40" direction="left" id="leftButton" />
                     <horizontal preferred-width="40" child-expand-width="false">
-                        <slider-setting text="" pad-left="2" increment="0.01" min="0" max="20" integer-only="true" id="comboBreakLimitSlider" />
+                        <slider-setting text="" pad-left="2" increment="0.01" min="0" max="20" integer-only="true" value="comboBreakLimitSlider" />
                     </horizontal>
                     <button text="&gt;" direction="right" id="rightButton" />
                 </horizontal>
                 <horizontal child-expand-width="true">
                     <button text="&lt;" pad-left="40" direction="left" id="leftButton" />
                     <horizontal preferred-width="40" child-expand-width="false">
-                        <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" id="accRequirementSlider" />
+                        <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" value="accRequirementSlider" />
                     </horizontal>
                     <button text="&gt;" direction="right" id="rightButton" />
                 </horizontal>
                 <horizontal child-expand-width="true">
                     <button text="&lt;" pad-left="40" direction="left" id="leftButton" />
                     <horizontal preferred-width="40" child-expand-width="false">
-                        <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" integer-only="true" id="pauseLimitSlider" />
+                        <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" integer-only="true" value="pauseLimitSlider" />
                     </horizontal>
                     <button text="&gt;" direction="right" id="rightButton" />
                 </horizontal>
                 <horizontal child-expand-width="true">
                     <button text="&lt;" pad-left="40" direction="left" id="leftButton" />
                     <horizontal preferred-width="40" child-expand-width="false">
-                        <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" integer-only="true" id="maxMissCountSlider" />
+                        <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" integer-only="true" value="maxMissCountSlider" />
                     </horizontal>
                     <button text="&gt;" direction="right" id="rightButton" />
                 </horizontal>

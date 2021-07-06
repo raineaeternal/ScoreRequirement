@@ -2,9 +2,9 @@
 using SiraUtil.Tools;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.GameplaySetup;
-using BeatSaberMarkupLanguage.ViewControllers;
+using IPA.Config.Data;
 using ScoreRequirement.Configuration;
-using ScoreRequirement.Installers;
+using ScoreRequirement.Managers;
 using Zenject;
 
 namespace ScoreRequirement.UI
@@ -12,7 +12,7 @@ namespace ScoreRequirement.UI
     public class SRSettingsViewController : IInitializable, IDisposable
     {
         private PluginConfig _config;
-
+        
         public SRSettingsViewController(PluginConfig config)
         {
             _config = config;
@@ -26,6 +26,13 @@ namespace ScoreRequirement.UI
         public void Dispose()
         {
             GameplaySetup.instance.RemoveTab("ScoreRequirement");
+        }
+
+        [UIValue("srEnabled")]
+        private bool SREnabled
+        {
+            get => _config.isSREnabled;
+            set => _config.isSREnabled = value;
         }
     }
 }

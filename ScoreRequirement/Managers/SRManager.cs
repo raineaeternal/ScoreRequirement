@@ -22,9 +22,10 @@ namespace ScoreRequirement.Managers
         {
             _logger.Info("Level Finished.");
         }
-            
+        
         public void Initialize()
         {
+            if(!_config.isSREnabled) return;
             _songController.songDidFinishEvent += SongFinished;
         }
 
