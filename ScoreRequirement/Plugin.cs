@@ -20,8 +20,8 @@ namespace ScoreRequirement
         {
             _config = config.Generated<PluginConfig>();
             
-            zenjector.OnApp<SRMenuInstaller>().WithParameters(logger, _config);
-            zenjector.OnGame<SRGameInstaller>();
+            zenjector.OnMenu<SRMenuInstaller>().WithParameters(logger, _config);
+            zenjector.OnGame<SRGameInstaller>().WithParameters(logger, _config);
         }
 
         [OnEnable]

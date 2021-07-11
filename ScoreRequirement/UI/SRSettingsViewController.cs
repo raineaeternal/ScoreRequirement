@@ -1,10 +1,13 @@
 ﻿using System;
 using SiraUtil.Tools;
 using BeatSaberMarkupLanguage.Attributes;
+using BeatSaberMarkupLanguage.Components.Settings;
 using BeatSaberMarkupLanguage.GameplaySetup;
+using HMUI;
 using IPA.Config.Data;
 using ScoreRequirement.Configuration;
 using ScoreRequirement.Managers;
+
 using Zenject;
 
 namespace ScoreRequirement.UI
@@ -13,25 +16,34 @@ namespace ScoreRequirement.UI
     {
         private PluginConfig _config;
         private LevelCollectionNavigationController _levelCollectionNavigationController;
-        
-        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController)
+        private StandardLevelDetailViewController _levelDetail;
+
+        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, StandardLevelDetailViewController levelDetail)
         {
             _config = config;
+            _levelDetail = levelDetail;
             _levelCollectionNavigationController = levelCollectionNavigationController;
         }
 
         public void Initialize()
         {
             GameplaySetup.instance.AddTab("ScoreRequirement", "ScoreRequirement.UI.SRSettingsView.bsml", this);
-            
             _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
             _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent += LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
+            _levelCollectionNavigationController.didChangeLevelDetailContentEvent += DidChangeBeatmap;
+        }
+
+        private void DidChangeBeatmap(LevelCollectionNavigationController navigationController, StandardLevelDetailViewController.ContentType contentType)
+        {
+            if (contentType != StandardLevelDetailViewController.ContentType.OwnedAndReady) return;
+                comboSlider.slider.maxValue = navigationController.selectedDifficultyBeatmap.beatmapData.cuttableNotesType;
+                comboSlider.Value = 0;
         }
         
         private void LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent(LevelCollectionNavigationController _, IDifficultyBeatmap beatMap)
         {
-            // Calculate note count here and assign it to your UIValue (make sure that "bind-value=true"
-            noteCount = beatMap.beatmapData.cuttableNotesType;
+            comboSlider.slider.maxValue = beatMap.beatmapData.cuttableNotesType;
+                comboSlider.Value = 0;
         }
 
         public void Dispose()
@@ -45,13 +57,10 @@ namespace ScoreRequirement.UI
         {
             return (acc / 100f).ToString("P");
         }
-        
-        [UIValue("beatmapNoteCount")]
-        public string noteCount()
-        {
-            return ToString(noteCount());
-        }
-        
+
+        [UIComponent("comboSlider")] 
+        private SliderSetting comboSlider;
+
         [UIValue("srEnabled")]
         private bool SREnabled
         {
