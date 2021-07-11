@@ -16,7 +16,7 @@
                 <horizontal child-expand-width="true">
                     <button text="&lt;" pad-left="40" direction="left" id="leftButton" />
                     <horizontal preferred-width="40" child-expand-width="false">
-                        <slider-setting text="" pad-left="2" increment="1" min="0" max="3000" data="" integer-only="true" value="comboRequirementSlider" apply-on-change="true" />
+                        <slider-setting text="" pad-left="2" increment="1" min="0" max="3000" data="" integer-only="true" formatter="beatmapNoteCount" value="comboRequirementSlider" apply-on-change="true" bind-value="true" />
                     </horizontal>
                     <button text="&gt;" direction="right" id="rightButton" />
                 </horizontal>
@@ -30,7 +30,7 @@
                 <horizontal child-expand-width="true">
                     <button text="&lt;" pad-left="40" direction="left" id="leftButton" />
                     <horizontal preferred-width="40" child-expand-width="false">
-                        <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" value="accRequirementSlider" apply-on-change="true" />
+                        <slider-setting text="" pad-left="2" increment="0.01" min="0.01" max="100" formatter="maxAcc" value="accRequirementSlider" apply-on-change="true" />
                     </horizontal>
                     <button text="&gt;" direction="right" id="rightButton" />
                 </horizontal>

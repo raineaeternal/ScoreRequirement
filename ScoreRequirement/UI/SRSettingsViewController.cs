@@ -12,22 +12,46 @@ namespace ScoreRequirement.UI
     public class SRSettingsViewController : IInitializable, IDisposable
     {
         private PluginConfig _config;
+        private LevelCollectionNavigationController _levelCollectionNavigationController;
         
-        public SRSettingsViewController(PluginConfig config)
+        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController)
         {
             _config = config;
+            _levelCollectionNavigationController = levelCollectionNavigationController;
         }
 
         public void Initialize()
         {
             GameplaySetup.instance.AddTab("ScoreRequirement", "ScoreRequirement.UI.SRSettingsView.bsml", this);
+            
+            _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
+            _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent += LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
+        }
+        
+        private void LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent(LevelCollectionNavigationController _, IDifficultyBeatmap beatMap)
+        {
+            // Calculate note count here and assign it to your UIValue (make sure that "bind-value=true"
+            noteCount = beatMap.beatmapData.cuttableNotesType;
         }
 
         public void Dispose()
         {
             GameplaySetup.instance.RemoveTab("ScoreRequirement");
+            _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
         }
 
+        [UIAction("maxAcc")]
+        public string MaxAcc(float acc)
+        {
+            return (acc / 100f).ToString("P");
+        }
+        
+        [UIValue("beatmapNoteCount")]
+        public string noteCount()
+        {
+            return ToString(noteCount());
+        }
+        
         [UIValue("srEnabled")]
         private bool SREnabled
         {
