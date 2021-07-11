@@ -14,14 +14,15 @@ namespace ScoreRequirement.Managers
         private readonly IScoreController _iScoreController;
         private readonly PauseController _pauseController;
         private readonly IReadonlyBeatmapData _iReadonlyBeatmapData;
-        private readonly AccuracyCheckManager _accuracyCheckManager;
         private Submission _submission;
-        
+        private AudioTimeSyncController _audioTimeSyncController;
+        private RelativeScoreAndImmediateRankCounter _relativeScoreAndImmediateRankCounter;
+
         private int currentComboBreaks;
         private int currentPauses;
         private int currentMisses;
 
-        public SRManager(Logger logger, PluginConfig config, SongController songController, IScoreController iScoreController, PauseController pauseController, IReadonlyBeatmapData iReadonlyBeatmapData, AccuracyCheckManager accuracyCheckManager, Submission submission)
+        public SRManager(Logger logger, PluginConfig config, SongController songController, IScoreController iScoreController, PauseController pauseController, IReadonlyBeatmapData iReadonlyBeatmapData, Submission submission, AudioTimeSyncController audioTimeSyncController, RelativeScoreAndImmediateRankCounter relativeScoreAndImmediateRankCounter)
         {
             _config = config;
             _logger = logger;
@@ -29,16 +30,18 @@ namespace ScoreRequirement.Managers
             _iScoreController = iScoreController;
             _pauseController = pauseController;
             _iReadonlyBeatmapData = iReadonlyBeatmapData;
-            _accuracyCheckManager = accuracyCheckManager;
+            _submission = submission;
+            _audioTimeSyncController = audioTimeSyncController;
+            _relativeScoreAndImmediateRankCounter = relativeScoreAndImmediateRankCounter;
             _submission = submission;
         }
 
         public void CheckMaxCombo()
         { 
             if (!_config.isComboRequirementEnabled) return;
-                _logger.Info($"{_iScoreController.maxCombo} of {_config.minimumComboCount} has been reached!");
-                if (!(_iScoreController.maxCombo > _config.minimumComboCount))
+            if (!(_iScoreController.maxCombo > _config.minimumComboCount))
                     _submission?.DisableScoreSubmission("ScoreRequirement", "Combo was too low");
+            _logger.Info($"{_iScoreController.maxCombo} of {_config.minimumComboCount} has been reached!");
         }
 
         private void ComboChanged(int combo)
@@ -48,8 +51,9 @@ namespace ScoreRequirement.Managers
 
         private void CheckComboBreaks()
         {
-            _logger.Info($"Combo breaks: {currentComboBreaks}");
+            if (!_config.isComboBreakLimitEnabled) return;
             if (currentComboBreaks > _config.comboBreakLimit) _submission?.DisableScoreSubmission("ScoreRequirement", "Too many combo breaks");
+            _logger.Info($"Combo breaks: {currentComboBreaks}");
         }
         
         private void SongFinished()
@@ -58,9 +62,6 @@ namespace ScoreRequirement.Managers
             CheckComboBreaks();
             CheckPauses();
             CheckMisses();
-            _accuracyCheckManager.Update();
-
-            _logger.Info($"Is Score Submission disabled: {isScoreSubmissionDisabled}");
         }
         
         private void PauseChanged()
@@ -68,22 +69,32 @@ namespace ScoreRequirement.Managers
             currentPauses++;
         }
 
-        public void CheckPauses()
+        private void ScoreChanged()
         {
-            _logger.Info($"Pauses: {currentPauses}");
-            if (currentPauses > _config.pauseLimit) _submission?.DisableScoreSubmission("ScoreRequirement", "Too many pauses");
+            if (_relativeScoreAndImmediateRankCounter.relativeScore < (float)_config.accRequirement / 100f)
+                _submission.DisableScoreSubmission("ScoreRequirement", "Accuracy was too low");
+            _logger.Info($"Current acc is: {_relativeScoreAndImmediateRankCounter.relativeScore} of the required {_config.accRequirement}"); 
         }
-        
-        public void NoteWasMissed(NoteData noteData, int multiplier)
+
+        private void CheckPauses()
+        {
+            if (!_config.isMissLimitEnabled) return;
+            if (currentPauses > _config.pauseLimit) _submission?.DisableScoreSubmission("ScoreRequirement", "Too many pauses");
+            _logger.Info($"Pauses: {currentPauses}");
+        }
+
+        private void NoteWasMissed(NoteData noteData, int multiplier)
         {
             if (noteData.colorType == ColorType.None) return;
             currentMisses++;
         }
 
-        public void CheckMisses()
+        private void CheckMisses()
         {
+            if (!_config.isMissLimitEnabled) return;
+            if (currentMisses > _config.missLimit) 
+                _submission?.DisableScoreSubmission("ScoreRequirement", "Too many misses");
             _logger.Info($"Misses: {currentMisses}");
-            if (currentMisses > _config.missLimit) _submission?.DisableScoreSubmission("ScoreRequirement", "Too many misses");
         }
 
         public void Initialize()
@@ -92,18 +103,20 @@ namespace ScoreRequirement.Managers
             currentPauses = 0;
             currentMisses = 0;
 
-            if(!_config.isSREnabled) return;
-            _songController.songDidFinishEvent += SongFinished;
+            if (_config.isSREnabled) _songController.songDidFinishEvent += SongFinished;
 
-            if(_config.isAccRequirementEnabled) _accuracyCheckManager.Update();
+            if (_config.isAccRequirementEnabled) _songController.songDidFinishEvent += ScoreChanged;
             if (_config.isMissLimitEnabled) _iScoreController.noteWasMissedEvent += NoteWasMissed;
-            if(_config.isComboBreakLimitEnabled) _iScoreController.comboDidChangeEvent += ComboChanged;
+            if (_config.isComboBreakLimitEnabled) _iScoreController.comboDidChangeEvent += ComboChanged;
             if (_config.isPauseLimitEnabled) _pauseController.didPauseEvent += PauseChanged;
         }
 
         public void Dispose()
         {
-            
+            if (_config.isAccRequirementEnabled) _songController.songDidFinishEvent -= ScoreChanged;
+            if (_config.isMissLimitEnabled) _iScoreController.noteWasMissedEvent -= NoteWasMissed;
+            if (_config.isComboBreakLimitEnabled) _iScoreController.comboDidChangeEvent -= ComboChanged;
+            if (_config.isPauseLimitEnabled) _pauseController.didPauseEvent -= PauseChanged;
         }
     }
 }
