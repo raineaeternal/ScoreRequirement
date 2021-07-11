@@ -22,7 +22,6 @@ namespace ScoreRequirement.Installers
             Container.BindInstance(_logger).AsSingle();
             Container.BindInstance(_config).AsSingle();
             Container.BindInterfacesAndSelfTo<SRManager>().AsSingle();
-            Container.BindInterfacesAndSelfTo<AccuracyCheckManager>().FromNewComponentOnRoot().AsSingle();
         }
     }
 }
