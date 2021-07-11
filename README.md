@@ -7,8 +7,6 @@ This mod allows you to disable score submission to ScoreSaber with custom parame
 
 ## Changelog
 ## v0.0.1
-
----
 * Disabled score submission if one of these requirements or limits are met
     - Accuracy (Requirement)
     - Combo (Requirement)
