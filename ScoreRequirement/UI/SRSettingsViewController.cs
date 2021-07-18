@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using SiraUtil.Tools;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components.Settings;
 using BeatSaberMarkupLanguage.GameplaySetup;
 using HMUI;
 using IPA.Config.Data;
+using JetBrains.Annotations;
 using ScoreRequirement.Configuration;
 using ScoreRequirement.Managers;
 
@@ -12,11 +15,13 @@ using Zenject;
 
 namespace ScoreRequirement.UI
 {
-    public class SRSettingsViewController : IInitializable, IDisposable
+    public class SRSettingsViewController : IInitializable, IDisposable, INotifyPropertyChanged
     {
         private PluginConfig _config;
         private LevelCollectionNavigationController _levelCollectionNavigationController;
         private StandardLevelDetailViewController _levelDetail;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, StandardLevelDetailViewController levelDetail)
         {
@@ -55,7 +60,7 @@ namespace ScoreRequirement.UI
         [UIAction("maxAcc")]
         public string MaxAcc(float acc)
         {
-            return (acc / 100f).ToString("P");
+            return (acc / 100).ToString("P1");
         }
 
         [UIComponent("comboSlider")] 
@@ -65,77 +70,121 @@ namespace ScoreRequirement.UI
         private bool SREnabled
         {
             get => _config.isSREnabled;
-            set => _config.isSREnabled = value;
+            set
+            {
+                _config.isSREnabled = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isSREnabled)));
+            }
         }
         
         [UIValue("comboRequirement")]
         private bool ComboReqEnabled
         {
             get => _config.isComboRequirementEnabled;
-            set => _config.isComboRequirementEnabled = value;
+            set
+            {
+                _config.isComboRequirementEnabled = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isComboRequirementEnabled)));
+            }
         }
         
         [UIValue("breakLimit")]
         private bool BreakLimitEnabled
         {
             get => _config.isComboBreakLimitEnabled;
-            set => _config.isComboBreakLimitEnabled = value;
+            set
+            {
+                _config.isComboBreakLimitEnabled = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isComboBreakLimitEnabled)));
+            } 
         }
         
         [UIValue("accRequirement")]
         private bool AccReqEnabled
         {
             get => _config.isAccRequirementEnabled;
-            set => _config.isAccRequirementEnabled = value;
-        }
+            set
+            {
+                _config.isAccRequirementEnabled = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isAccRequirementEnabled)));
+            } 
+    }
         
         [UIValue("pauseLimit")]
         private bool PauseLimitEnabled
         {
             get => _config.isPauseLimitEnabled;
-            set => _config.isPauseLimitEnabled = value;
+            set
+            {
+                _config.isPauseLimitEnabled = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isPauseLimitEnabled)));
+            } 
         }
         
         [UIValue("missCount")]
         private bool MissCountEnabled
         {
             get => _config.isMissLimitEnabled;
-            set => _config.isMissLimitEnabled = value;
+            set
+            {
+                _config.isMissLimitEnabled = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isMissLimitEnabled)));
+            } 
         }
         
         [UIValue("comboRequirementSlider")]
         private int ComboRequirement
         {
             get => _config.minimumComboCount;
-            set => _config.minimumComboCount = value;
+            set
+            {
+                _config.minimumComboCount = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.minimumComboCount)));
+            } 
         }
         
         [UIValue("comboBreakLimitSlider")]
         private int ComboBreakLimit
         {
             get => _config.comboBreakLimit;
-            set => _config.comboBreakLimit = value;
+            set
+            {
+                _config.comboBreakLimit = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.comboBreakLimit)));
+            } 
         }
         
         [UIValue("accRequirementSlider")]
         private float AccRequirement
         {
             get => _config.accRequirement;
-            set => _config.accRequirement = value;
+            set
+            {
+                _config.accRequirement = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.accRequirement)));
+            } 
         }
         
         [UIValue("pauseLimitSlider")]
         private int PauseLimit
         {
             get => _config.pauseLimit;
-            set => _config.pauseLimit = value;
+            set
+            {
+                _config.pauseLimit = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.pauseLimit)));
+            }
         }
         
         [UIValue("maxMissCountSlider")]
         private int MaxMissCount
         {
             get => _config.missLimit;
-            set => _config.missLimit = value;
+            set
+            {
+                _config.missLimit = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.missLimit)));
+            } 
         }
     }
 }
