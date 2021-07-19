@@ -34,28 +34,28 @@ namespace ScoreRequirement.UI
         public void Initialize()
         {
             GameplaySetup.instance.AddTab("ScoreRequirement", "ScoreRequirement.UI.SRSettingsView.bsml", this);
-            _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
-            _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent += LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
-            _levelCollectionNavigationController.didChangeLevelDetailContentEvent += DidChangeBeatmap;
+            // _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
+            // _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent += LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
+            // _levelCollectionNavigationController.didChangeLevelDetailContentEvent += DidChangeBeatmap;
         }
 
-        private void DidChangeBeatmap(LevelCollectionNavigationController navigationController, StandardLevelDetailViewController.ContentType contentType)
+        /*private void DidChangeBeatmap(LevelCollectionNavigationController navigationController, StandardLevelDetailViewController.ContentType contentType)
         {
             if (contentType != StandardLevelDetailViewController.ContentType.OwnedAndReady) return;
                 comboSlider.slider.maxValue = navigationController.selectedDifficultyBeatmap.beatmapData.cuttableNotesType;
                 comboSlider.Value = 0;
-        }
+        }*/
         
-        private void LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent(LevelCollectionNavigationController _, IDifficultyBeatmap beatMap)
+        /*private void LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent(LevelCollectionNavigationController _, IDifficultyBeatmap beatMap)
         {
             comboSlider.slider.maxValue = beatMap.beatmapData.cuttableNotesType;
                 comboSlider.Value = 0;
-        }
+        }*/
 
         public void Dispose()
         {
             GameplaySetup.instance.RemoveTab("ScoreRequirement");
-            _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
+            // _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
         }
 
         [UIAction("maxAcc")]
@@ -63,9 +63,6 @@ namespace ScoreRequirement.UI
         {
             return (acc / 100).ToString("P1");
         }
-
-        [UIComponent("comboSlider")] 
-        private SliderSetting comboSlider;
 
         [UIValue("srEnabled")]
         private bool SREnabled
@@ -188,38 +185,38 @@ namespace ScoreRequirement.UI
             } 
         }
         
-        [UIComponent("left-button")]
+        [UIComponent("leftButton")]
         protected readonly RectTransform leftButton;
         
         [UIComponent("rightButton")]
         protected readonly RectTransform rightButton;
+        
+        /*[UIComponent("comboSlider")] 
+        private SliderSetting comboSlider;*/
 
         [UIComponent("accRequirementSliderPostParse")] 
         protected readonly SliderSetting accSlider;
         
-        [UIComponent("breakSliderPostParse")] 
-        protected readonly SliderSetting breakSlider;
+        /*[UIComponent("breakSliderPostParse")] 
+        protected readonly SliderSetting breakSlider;*/
+
+        /*[UIComponent("pauseLimitSliderPostParse")] 
+        protected readonly SliderSetting pauseSlider;*/
         
-        [UIComponent("comboSliderPostParse")] 
-        protected readonly SliderSetting _comboSlider;
-        
-        [UIComponent("pauseLimitSliderPostParse")] 
-        protected readonly SliderSetting pauseSlider;
-        
-        [UIComponent("missSliderPostParse")] 
-        protected readonly SliderSetting missSlider;
+        /*[UIComponent("missSliderPostParse")] 
+        protected readonly SliderSetting missSlider;*/
         
         public static readonly int universalInt = 1;
         public static readonly float accStep = 0.01f;
 
         [UIAction("#post-parse")]
         protected void PostParse()
-        {
+        { 
             SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), accSlider, accStep);
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), _comboSlider, universalInt);
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), pauseSlider, universalInt);
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), breakSlider, universalInt);
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), missSlider, universalInt);
+            // SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), comboSlider, universalInt);
+            // SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), pauseSlider, universalInt);
+            // SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), breakSlider, universalInt);
+            // SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), missSlider, universalInt);
             GameObject.Destroy(leftButton.gameObject);
             GameObject.Destroy(rightButton.gameObject);
         }
