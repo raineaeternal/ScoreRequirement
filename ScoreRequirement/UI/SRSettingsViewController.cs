@@ -194,19 +194,19 @@ namespace ScoreRequirement.UI
         [UIComponent("rightButton")]
         protected readonly RectTransform rightButton;
 
-        [UIComponent("accRequirementSlider")] 
+        [UIComponent("accRequirementSliderPostParse")] 
         protected readonly SliderSetting accSlider;
         
-        [UIComponent("accRequirementSlider")] 
+        [UIComponent("breakSliderPostParse")] 
         protected readonly SliderSetting breakSlider;
         
-        [UIComponent("maxMissCount")] 
+        [UIComponent("comboSliderPostParse")] 
         protected readonly SliderSetting _comboSlider;
         
-        [UIComponent("pauseLimitSlider")] 
+        [UIComponent("pauseLimitSliderPostParse")] 
         protected readonly SliderSetting pauseSlider;
         
-        [UIComponent("missSlider")] 
+        [UIComponent("missSliderPostParse")] 
         protected readonly SliderSetting missSlider;
         
         public static readonly int universalInt = 1;

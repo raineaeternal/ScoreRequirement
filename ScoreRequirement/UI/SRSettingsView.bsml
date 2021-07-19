@@ -14,20 +14,20 @@
         
             <vertical pad-left="15" child-expand-width="false">
                 <horizontal child-expand-width="true">
-                    <slider-setting text="" pad-left="2" increment="1" min="0" max="1000" integer-only="true" id="comboSlider" value="comboRequirementSlider" apply-on-change="true" />
+                    <slider-setting text="" pad-left="2" increment="1" min="0" max="1000" integer-only="true" id="comboSlider" value="comboRequirement" apply-on-change="true" />
                 </horizontal>
                 <horizontal child-expand-width="true">
-                    <slider-setting text="" pad-left="2" increment="0.01" min="0" max="20" integer-only="true" value="comboBreakLimitSlider" apply-on-change="true" />
+                    <slider-setting text="" pad-left="2" increment="0.01" min="0" max="20" integer-only="true" id="breakSliderPostParse" value="comboBreakLimit" apply-on-change="true" />
                 </horizontal>
                 <horizontal child-expand-width="true">
-                    <slider-setting text="" pad-left="2" increment="0.01" min="0.01" max="100" formatter="maxAcc" value="accRequirementSlider" apply-on-change="true" />
+                    <slider-setting text="" pad-left="2" increment="0.01" min="0.01" max="100" formatter="maxAcc" id="accRequirementSliderPostParse" value="accRequirement" apply-on-change="true" />
                 </horizontal>
                 <horizontal child-expand-width="true">
-                    <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" integer-only="true" value="pauseLimitSlider" apply-on-change="true" />
+                    <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" integer-only="true" id="pauseLimitSliderPostParse" value="pauseLimit" apply-on-change="true" />
                 </horizontal>
                 <horizontal child-expand-width="true">
-                    <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" integer-only="true" value="maxMissCountSlider" apply-on-change="true" />
-                </horizontal>
+                    <slider-setting text="" pad-left="2" increment="0.01" min="0" max="100" integer-only="true" id="missSliderPostParse" value="maxMissCount" apply-on-change="true" />
+                </horizontal> 
             </vertical>
         </horizontal>
     </vertical>
