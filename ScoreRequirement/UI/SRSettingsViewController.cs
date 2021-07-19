@@ -10,7 +10,8 @@ using IPA.Config.Data;
 using JetBrains.Annotations;
 using ScoreRequirement.Configuration;
 using ScoreRequirement.Managers;
-
+using ScoreRequirement.UI.Components;
+using UnityEngine;
 using Zenject;
 
 namespace ScoreRequirement.UI
@@ -185,6 +186,42 @@ namespace ScoreRequirement.UI
                 _config.missLimit = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.missLimit)));
             } 
+        }
+        
+        [UIComponent("left-button")]
+        protected readonly RectTransform leftButton;
+        
+        [UIComponent("rightButton")]
+        protected readonly RectTransform rightButton;
+
+        [UIComponent("accRequirementSlider")] 
+        protected readonly SliderSetting accSlider;
+        
+        [UIComponent("accRequirementSlider")] 
+        protected readonly SliderSetting breakSlider;
+        
+        [UIComponent("maxMissCount")] 
+        protected readonly SliderSetting _comboSlider;
+        
+        [UIComponent("pauseLimitSlider")] 
+        protected readonly SliderSetting pauseSlider;
+        
+        [UIComponent("missSlider")] 
+        protected readonly SliderSetting missSlider;
+        
+        public static readonly int universalInt = 1;
+        public static readonly float accStep = 0.01f;
+
+        [UIAction("#post-parse")]
+        protected void PostParse()
+        {
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), accSlider, accStep);
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), _comboSlider, universalInt);
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), pauseSlider, universalInt);
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), breakSlider, universalInt);
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), missSlider, universalInt);
+            GameObject.Destroy(leftButton.gameObject);
+            GameObject.Destroy(rightButton.gameObject);
         }
     }
 }
