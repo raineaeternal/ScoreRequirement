@@ -26,7 +26,7 @@ These can be downloaded from [BeatMods](https://beatmods.com/#/mods) or using Mo
 * If you ask for help on Discord, at least include your `_latest.log` file in your help request.
 
 ## Contributing
-Anyone can feel free to contribute bug fixes or enhancements to CutieCore. GitHub Actions for Pull Requests made from GitHub accounts that don't have direct access to the repository will fail. This is normal because the Action requires a `Secret` to download dependencies.
+Anyone can feel free to contribute bug fixes or enhancements to ScoreRequirement! Fork, make your changes and pull request it!
 ### Building
 Visual Studio 2019 with the [BeatSaberModdingTools](https://github.com/Zingabopp/BeatSaberModdingTools) extension is the recommended development environment.
 1. Check out the repository
