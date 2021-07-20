@@ -34,35 +34,37 @@ namespace ScoreRequirement.UI
         public void Initialize()
         {
             GameplaySetup.instance.AddTab("ScoreRequirement", "ScoreRequirement.UI.SRSettingsView.bsml", this);
-            // _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
-            // _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent += LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
-            // _levelCollectionNavigationController.didChangeLevelDetailContentEvent += DidChangeBeatmap;
+            _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
+            _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent += LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
+            _levelCollectionNavigationController.didChangeLevelDetailContentEvent += DidChangeBeatmap;
         }
 
-        /*private void DidChangeBeatmap(LevelCollectionNavigationController navigationController, StandardLevelDetailViewController.ContentType contentType)
+        private void DidChangeBeatmap(LevelCollectionNavigationController navigationController, StandardLevelDetailViewController.ContentType contentType)
         {
             if (contentType != StandardLevelDetailViewController.ContentType.OwnedAndReady) return;
                 comboSlider.slider.maxValue = navigationController.selectedDifficultyBeatmap.beatmapData.cuttableNotesType;
                 comboSlider.Value = 0;
-        }*/
+        }
         
-        /*private void LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent(LevelCollectionNavigationController _, IDifficultyBeatmap beatMap)
+        private void LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent(LevelCollectionNavigationController _, IDifficultyBeatmap beatMap)
         {
             comboSlider.slider.maxValue = beatMap.beatmapData.cuttableNotesType;
                 comboSlider.Value = 0;
-        }*/
+        }
 
         public void Dispose()
         {
             GameplaySetup.instance.RemoveTab("ScoreRequirement");
-            // _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
+            _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
         }
 
         [UIAction("maxAcc")]
         public string MaxAcc(float acc)
         {
-            return (acc / 100).ToString("P1");
+            return (acc / 100).ToString("P");
         }
+
+        #region EnabledToggles
 
         [UIValue("srEnabled")]
         private bool SREnabled
@@ -75,7 +77,7 @@ namespace ScoreRequirement.UI
             }
         }
         
-        [UIValue("comboRequirement")]
+        [UIValue("comboRequirementEnabled")]
         private bool ComboReqEnabled
         {
             get => _config.isComboRequirementEnabled;
@@ -86,7 +88,7 @@ namespace ScoreRequirement.UI
             }
         }
         
-        [UIValue("breakLimit")]
+        [UIValue("breakLimitEnabled")]
         private bool BreakLimitEnabled
         {
             get => _config.isComboBreakLimitEnabled;
@@ -97,7 +99,7 @@ namespace ScoreRequirement.UI
             } 
         }
         
-        [UIValue("accRequirement")]
+        [UIValue("accRequirementEnabled")]
         private bool AccReqEnabled
         {
             get => _config.isAccRequirementEnabled;
@@ -108,7 +110,7 @@ namespace ScoreRequirement.UI
             } 
     }
         
-        [UIValue("pauseLimit")]
+        [UIValue("pauseLimitEnabled")]
         private bool PauseLimitEnabled
         {
             get => _config.isPauseLimitEnabled;
@@ -119,7 +121,7 @@ namespace ScoreRequirement.UI
             } 
         }
         
-        [UIValue("missCount")]
+        [UIValue("missCountEnabled")]
         private bool MissCountEnabled
         {
             get => _config.isMissLimitEnabled;
@@ -130,7 +132,11 @@ namespace ScoreRequirement.UI
             } 
         }
         
-        [UIValue("comboRequirementSlider")]
+        #endregion
+
+        #region Values
+        
+        [UIValue("comboRequirement")]
         private int ComboRequirement
         {
             get => _config.minimumComboCount;
@@ -141,7 +147,7 @@ namespace ScoreRequirement.UI
             } 
         }
         
-        [UIValue("comboBreakLimitSlider")]
+        [UIValue("comboBreakLimit")]
         private int ComboBreakLimit
         {
             get => _config.comboBreakLimit;
@@ -152,7 +158,7 @@ namespace ScoreRequirement.UI
             } 
         }
         
-        [UIValue("accRequirementSlider")]
+        [UIValue("accRequirement")]
         private float AccRequirement
         {
             get => _config.accRequirement;
@@ -163,7 +169,7 @@ namespace ScoreRequirement.UI
             } 
         }
         
-        [UIValue("pauseLimitSlider")]
+        [UIValue("pauseLimit")]
         private int PauseLimit
         {
             get => _config.pauseLimit;
@@ -174,7 +180,7 @@ namespace ScoreRequirement.UI
             }
         }
         
-        [UIValue("maxMissCountSlider")]
+        [UIValue("maxMissCount")]
         private int MaxMissCount
         {
             get => _config.missLimit;
@@ -184,6 +190,9 @@ namespace ScoreRequirement.UI
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.missLimit)));
             } 
         }
+        #endregion
+
+        #region UI Components
         
         [UIComponent("leftButton")]
         protected readonly RectTransform leftButton;
@@ -191,20 +200,20 @@ namespace ScoreRequirement.UI
         [UIComponent("rightButton")]
         protected readonly RectTransform rightButton;
         
-        /*[UIComponent("comboSlider")] 
-        private SliderSetting comboSlider;*/
+        [UIComponent("comboSlider")] 
+        private SliderSetting comboSlider;
 
-        [UIComponent("accRequirementSliderPostParse")] 
+        [UIComponent("accRequirementSlider")] 
         protected readonly SliderSetting accSlider;
         
-        /*[UIComponent("breakSliderPostParse")] 
-        protected readonly SliderSetting breakSlider;*/
+        [UIComponent("breakSlider")] 
+        protected readonly SliderSetting breakSlider;
 
-        /*[UIComponent("pauseLimitSliderPostParse")] 
-        protected readonly SliderSetting pauseSlider;*/
+        [UIComponent("pauseLimitSlider")] 
+        protected readonly SliderSetting pauseSlider;
         
-        /*[UIComponent("missSliderPostParse")] 
-        protected readonly SliderSetting missSlider;*/
+        [UIComponent("missSlider")] 
+        protected readonly SliderSetting missSlider;
         
         public static readonly int universalInt = 1;
         public static readonly float accStep = 0.01f;
@@ -213,12 +222,14 @@ namespace ScoreRequirement.UI
         protected void PostParse()
         { 
             SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), accSlider, accStep);
-            // SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), comboSlider, universalInt);
-            // SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), pauseSlider, universalInt);
-            // SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), breakSlider, universalInt);
-            // SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), missSlider, universalInt);
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), comboSlider, universalInt);
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), pauseSlider, universalInt);
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), breakSlider, universalInt);
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), missSlider, universalInt);
             GameObject.Destroy(leftButton.gameObject);
             GameObject.Destroy(rightButton.gameObject);
         }
+        
+        #endregion
     }
 }
