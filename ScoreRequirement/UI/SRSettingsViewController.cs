@@ -43,13 +43,13 @@ namespace ScoreRequirement.UI
         {
             if (contentType != StandardLevelDetailViewController.ContentType.OwnedAndReady) return;
                 comboSlider.slider.maxValue = navigationController.selectedDifficultyBeatmap.beatmapData.cuttableNotesType;
-                comboSlider.Value = 0;
+                ComboRequirement = 0;
         }
         
         private void LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent(LevelCollectionNavigationController _, IDifficultyBeatmap beatMap)
         {
             comboSlider.slider.maxValue = beatMap.beatmapData.cuttableNotesType;
-                comboSlider.Value = 0;
+                ComboRequirement = 0;
         }
 
         public void Dispose()
@@ -73,7 +73,7 @@ namespace ScoreRequirement.UI
             set
             {
                 _config.isSREnabled = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isSREnabled)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SREnabled)));
             }
         }
         
@@ -84,7 +84,7 @@ namespace ScoreRequirement.UI
             set
             {
                 _config.isComboRequirementEnabled = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isComboRequirementEnabled)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ComboReqEnabled)));
             }
         }
         
@@ -95,7 +95,7 @@ namespace ScoreRequirement.UI
             set
             {
                 _config.isComboBreakLimitEnabled = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isComboBreakLimitEnabled)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BreakLimitEnabled)));
             } 
         }
         
@@ -106,7 +106,7 @@ namespace ScoreRequirement.UI
             set
             {
                 _config.isAccRequirementEnabled = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isAccRequirementEnabled)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AccReqEnabled)));
             } 
     }
         
@@ -117,18 +117,18 @@ namespace ScoreRequirement.UI
             set
             {
                 _config.isPauseLimitEnabled = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isPauseLimitEnabled)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PauseLimitEnabled)));
             } 
         }
         
-        [UIValue("missCountEnabled")]
-        private bool MissCountEnabled
+        [UIValue("missLimitEnabled")]
+        private bool MissLimitEnabled
         {
             get => _config.isMissLimitEnabled;
             set
             {
                 _config.isMissLimitEnabled = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.isMissLimitEnabled)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MissLimitEnabled)));
             } 
         }
         
@@ -143,7 +143,7 @@ namespace ScoreRequirement.UI
             set
             {
                 _config.minimumComboCount = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.minimumComboCount)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ComboRequirement)));
             } 
         }
         
@@ -154,7 +154,7 @@ namespace ScoreRequirement.UI
             set
             {
                 _config.comboBreakLimit = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.comboBreakLimit)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ComboBreakLimit)));
             } 
         }
         
@@ -165,7 +165,7 @@ namespace ScoreRequirement.UI
             set
             {
                 _config.accRequirement = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.accRequirement)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AccRequirement)));
             } 
         }
         
@@ -176,7 +176,7 @@ namespace ScoreRequirement.UI
             set
             {
                 _config.pauseLimit = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.pauseLimit)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PauseLimit)));
             }
         }
         
@@ -187,12 +187,12 @@ namespace ScoreRequirement.UI
             set
             {
                 _config.missLimit = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(_config.missLimit)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MaxMissCount)));
             } 
         }
         #endregion
 
-        #region UI Components
+        #region UIComponents
         
         [UIComponent("leftButton")]
         protected readonly RectTransform leftButton;
