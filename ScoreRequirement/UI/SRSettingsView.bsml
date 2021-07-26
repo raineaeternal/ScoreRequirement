@@ -2,23 +2,28 @@
     <vertical pad-bottom="55">
         <toggle-setting text="Enable ScoreRequirement" value="srEnabled" apply-on-change="true" hover-hint="Enables and disables the mod" />
     </vertical>
-    <settings-container pad-right="5">
-        
-        <toggle-setting text="Combo Requirement" value="comboRequirementEnabled" apply-on-change="true" hover-hint="Enables and disables this requirement" />
-        <slider-setting text="" active="~comboRequirementEnabled" pad-left="20" increment="1" min="0" max="1000" integer-only="true" id="comboSlider" value="comboRequirement" bind-value="true" apply-on-change="true" />
-        
-        <toggle-setting text="Combo Break Limit" value="breakLimitEnabled" apply-on-change="true" hover-hint="Enables and disables this requirement" />
-        <slider-setting text="" active="~breakLimitEnabled" pad-left="20" increment="0.01" min="0" max="20" integer-only="true" id="breakSlider" value="comboBreakLimit" bind-value="true" apply-on-change="true" />
-        
-        <toggle-setting text="Accuracy Requirement" value="accRequirementEnabled" apply-on-change="true" hover-hint="Enables and disables this requirement" />
-        <slider-setting text="" active="~accRequirementEnabled" pad-left="20" increment="0.01" min="0.01" max="100" formatter="maxAcc" id="accRequirementSlider" value="accRequirement" bind-value="true" apply-on-change="true" interger-only="false" />
-        
-        <toggle-setting text="Pause Limit" value="pauseLimitEnabled" apply-on-change="true" hover-hint="Enables and disables this requirement" />
-        <slider-setting text="" active="~pauseLimitEnabled" pad-left="20" increment="0.01" min="0" max="100" integer-only="true" id="pauseLimitSlider" value="pauseLimit" bind-value="true" apply-on-change="true" />
-        
-        <toggle-setting text="Max Miss Count" value="missCountEnabled" apply-on-change="true" hover-hint="Enables and disables this requirement" />
-        <slider-setting text="" active="~missCountEnabled" pad-left="20" increment="0.01" min="0" max="100" integer-only="true" id="missSlider" value="maxMissCount" bind-value="true" apply-on-change="true" />
-        
+    
+    <settings-container>
+        <horizontal pref-width="100" child-expand-width="false" spacing="0">
+            <toggle-setting text="Combo Requirement" value="comboRequirementEnabled" pref-width="50" apply-on-change="true" hover-hint="Enables and disables this requirement" />
+            <slider-setting text="" active="~comboRequirementEnabled" pref-width="45" pad-right="28" increment="1" min="0" max="1000" integer-only="true" id="comboSlider" value="comboRequirement" bind-value="true" apply-on-change="true" />
+        </horizontal>
+        <horizontal pref-width="100" child-expand-width="false" spacing="0">
+            <toggle-setting text="Combo Break Limit" value="breakLimitEnabled" pref-width="50" apply-on-change="true" hover-hint="Enables and disables this requirement" />
+            <slider-setting text="" active="~breakLimitEnabled" pref-width="45" pad-right="28" increment="0.01" min="0" max="20" integer-only="true" id="breakSlider" value="comboBreakLimit" bind-value="true" apply-on-change="true" />
+        </horizontal>
+        <horizontal pref-width="100" child-expand-width="false" spacing="0">
+            <toggle-setting text="Accuracy Requirement" value="accRequirementEnabled" pref-width="50" apply-on-change="true" hover-hint="Enables and disables this requirement" />
+            <slider-setting text="" active="~accRequirementEnabled" pref-width="45" pad-right="28" increment="0.01" min="0.01" max="100" formatter="maxAcc" id="accRequirementSlider" value="accRequirement" bind-value="true" apply-on-change="true" interger-only="false" />
+        </horizontal>
+        <horizontal pref-width="100" child-expand-width="false" spacing="0">
+            <toggle-setting text="Pause Limit" value="pauseLimitEnabled" pref-width="50" apply-on-change="true" hover-hint="Enables and disables this requirement" />
+            <slider-setting text="" active="~pauseLimitEnabled" pref-width="45" pad-right="28" increment="0.01" min="0" max="100" integer-only="true" id="pauseLimitSlider" value="pauseLimit" bind-value="true" apply-on-change="true" />
+        </horizontal>
+        <horizontal pref-width="100" child-expand-width="false" spacing="0">
+            <toggle-setting text="Max Miss Limit" value="missLimitEnabled" pref-width="50" apply-on-change="true" hover-hint="Enables and disables this requirement" />
+            <slider-setting text="" active="~missLimitEnabled" pref-width="45" pad-right="28" increment="0.01" min="0" max="100" integer-only="true" id="missSlider" value="maxMissCount" bind-value="true" apply-on-change="true" />
+        </horizontal>
     </settings-container>
     
     <button text="&lt;" direction="left" id="leftButton" />
