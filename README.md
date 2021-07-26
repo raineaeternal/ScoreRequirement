@@ -9,8 +9,6 @@ This mod allows you to disable score submission to ScoreSaber with custom parame
     - Combo Breaks (Limit)
     - Misses (Limit)
     - Pauses (Limit)
-    
-* Sliders will be hard to get right for now. Arrows are a part of the UI, but doesnt do anything yet.
 
 ## Requirements
 These can be downloaded from [BeatMods](https://beatmods.com/#/mods) or using Mod Assistant.
