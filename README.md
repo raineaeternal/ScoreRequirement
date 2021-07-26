@@ -9,13 +9,11 @@ This mod allows you to disable score submission to ScoreSaber with custom parame
     - Combo Breaks (Limit)
     - Misses (Limit)
     - Pauses (Limit)
-    
-* Sliders will be hard to get right for now. Arrows are a part of the UI, but doesnt do anything yet.
 
 ## Requirements
 These can be downloaded from [BeatMods](https://beatmods.com/#/mods) or using Mod Assistant.
-* BeatSaberMarkupLanguage (BSML) v1.5.3+
-* SiraUtil v2.5.5+
+* BeatSaberMarkupLanguage (BSML) v1.5.4+
+* SiraUtil v2.5.7+
 
 ## Reporting Issues
 * The best way to report issues is to click on the `Issues` tab at the top of the GitHub page. This allows any contributor to see the problem and attempt to fix it, and others with the same issue can contribute more information. **Please try the troubleshooting steps before reporting the issues listed there. Please only report issues after using the latest build, your problem may have already been fixed.**
