@@ -34,7 +34,7 @@ Visual Studio 2019 with the [BeatSaberModdingTools](https://github.com/Zingabopp
 2. Open `ScoreRequirement.sln`
 3. Right-click the `ScoreRequirement` project, go to `Beat Saber Modding Tools` -> `Set Beat Saber Directory`
   * This assumes you have already set the directory for your Beat Saber game folder in `Extensions` -> `Beat Saber Modding Tools` -> `Settings...`
-  * If you do not have the BeatSaberModdingTools extension, you will need to manually create a `CutieCore.csproj.user` file to set the location of your game install. An example is showing below.
+  * If you do not have the BeatSaberModdingTools extension, you will need to manually create a `ScoreRequirement.csproj.user` file to set the location of your game install. An example is showing below.
 4. The project should now build.
 
 **Example csproj.user File:**
