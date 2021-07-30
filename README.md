@@ -15,6 +15,9 @@ These can be downloaded from [BeatMods](https://beatmods.com/#/mods) or using Mo
 * BeatSaberMarkupLanguage (BSML) v1.5.4+
 * SiraUtil v2.5.7+
 
+## Contributions
+- SliderButton class from @rithik-b for the SliderButtons - major thank you
+
 ## Reporting Issues
 * The best way to report issues is to click on the `Issues` tab at the top of the GitHub page. This allows any contributor to see the problem and attempt to fix it, and others with the same issue can contribute more information. **Please try the troubleshooting steps before reporting the issues listed there. Please only report issues after using the latest build, your problem may have already been fixed.**
 * Include in your issue:
@@ -31,7 +34,7 @@ Visual Studio 2019 with the [BeatSaberModdingTools](https://github.com/Zingabopp
 2. Open `ScoreRequirement.sln`
 3. Right-click the `ScoreRequirement` project, go to `Beat Saber Modding Tools` -> `Set Beat Saber Directory`
   * This assumes you have already set the directory for your Beat Saber game folder in `Extensions` -> `Beat Saber Modding Tools` -> `Settings...`
-  * If you do not have the BeatSaberModdingTools extension, you will need to manually create a `CutieCore.csproj.user` file to set the location of your game install. An example is showing below.
+  * If you do not have the BeatSaberModdingTools extension, you will need to manually create a `ScoreRequirement.csproj.user` file to set the location of your game install. An example is showing below.
 4. The project should now build.
 
 **Example csproj.user File:**
