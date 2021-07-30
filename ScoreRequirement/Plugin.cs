@@ -21,7 +21,7 @@ namespace ScoreRequirement
             _config = config.Generated<PluginConfig>();
             
             zenjector.OnMenu<SRMenuInstaller>().WithParameters(logger, _config);
-            zenjector.OnGame<SRGameInstaller>().WithParameters(logger, _config);
+            zenjector.OnGame<SRGameInstaller>().WithParameters(logger, _config).ShortCircuitForMultiplayer();
         }
 
         [OnEnable]
