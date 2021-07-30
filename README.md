@@ -2,7 +2,13 @@
 
 This mod allows you to disable score submission to ScoreSaber with custom parameters!
 ## Changelog
-## v0.0.1
+
+## 1.0.1
+
+* Added support for multiplayer
+    - Major thank you to @Goobwabber for making me aware that it broke Multiplayer in some way.
+
+## v1.0.0
 * Disabled score submission if one of these requirements or limits are met
     - Accuracy (Requirement)
     - Combo (Requirement)
