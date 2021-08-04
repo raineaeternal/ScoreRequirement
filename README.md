@@ -3,13 +3,19 @@
 This mod allows you to disable score submission to ScoreSaber with custom parameters!
 ## Changelog
 
+## 1.0.2
+
+* Bugfixes & Gamemode limits
+    - Tutorial broke the game with ScoreRequirement installed
+    - Campaigns & CustomCampaigns support has been pulled in fear of unknown sideeffects.
+
 ## 1.0.1
 
 * Fixes an incompatibility with base game multiplayer
     - Major thank you to @Goobwabber for making me aware that it broke Multiplayer in some way.
 
 ## v1.0.0
-* Disabled score submission if one of these requirements or limits are met
+* Disables score submission if one of these requirements or limits are met
     - Accuracy (Requirement)
     - Combo (Requirement)
     - Combo Breaks (Limit)
