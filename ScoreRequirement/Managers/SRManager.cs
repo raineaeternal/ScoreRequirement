@@ -104,7 +104,6 @@ namespace ScoreRequirement.Managers
             currentMisses = 0;
 
             if (_config.isSREnabled) _songController.songDidFinishEvent += SongFinished;
-
             if (_config.isAccRequirementEnabled) _songController.songDidFinishEvent += ScoreChanged;
             if (_config.isMissLimitEnabled) _iScoreController.noteWasMissedEvent += NoteWasMissed;
             if (_config.isComboBreakLimitEnabled) _iScoreController.comboDidChangeEvent += ComboChanged;
@@ -113,6 +112,7 @@ namespace ScoreRequirement.Managers
 
         public void Dispose()
         {
+            if (_config.isSREnabled) _songController.songDidFinishEvent -= SongFinished;
             if (_config.isAccRequirementEnabled) _songController.songDidFinishEvent -= ScoreChanged;
             if (_config.isMissLimitEnabled) _iScoreController.noteWasMissedEvent -= NoteWasMissed;
             if (_config.isComboBreakLimitEnabled) _iScoreController.comboDidChangeEvent -= ComboChanged;
