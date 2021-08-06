@@ -71,7 +71,8 @@ namespace ScoreRequirement.Managers
 
         private void ScoreChanged()
         {
-            if (_relativeScoreAndImmediateRankCounter.relativeScore < (float)_config.accRequirement / 100f)
+            if (!_config.isAccRequirementEnabled) return;
+            if (_relativeScoreAndImmediateRankCounter.relativeScore < (float) _config.accRequirement / 100f)
                 _submission.DisableScoreSubmission("ScoreRequirement", "Accuracy was too low");
             _logger.Info($"Current acc is: {_relativeScoreAndImmediateRankCounter.relativeScore} of the required {_config.accRequirement}"); 
         }
