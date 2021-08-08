@@ -5,6 +5,10 @@ This mod allows you to disable score submission to ScoreSaber with custom parame
 
 ## 1.0.4
 
+* Fixed longlasting bug that disabled score submission for Accuracy regardless if the mod was active or not, if the requirement itself was active.
+
+## 1.0.2
+
 * Bugfixes & Gamemode limits
     - Tutorial broke the game with ScoreRequirement installed
     - Campaigns & CustomCampaigns support has been pulled in fear of unknown sideeffects.
