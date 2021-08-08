@@ -3,7 +3,7 @@
 This mod allows you to disable score submission to ScoreSaber with custom parameters!
 ## Changelog
 
-## 1.0.2
+## 1.0.4
 
 * Bugfixes & Gamemode limits
     - Tutorial broke the game with ScoreRequirement installed
