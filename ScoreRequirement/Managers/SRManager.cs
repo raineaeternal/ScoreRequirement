@@ -62,6 +62,7 @@ namespace ScoreRequirement.Managers
             CheckComboBreaks();
             CheckPauses();
             CheckMisses();
+            ScoreChanged();
         }
         
         private void PauseChanged()
@@ -79,7 +80,7 @@ namespace ScoreRequirement.Managers
 
         private void CheckPauses()
         {
-            if (!_config.isMissLimitEnabled) return;
+            if (!_config.isPauseLimitEnabled) return;
             if (currentPauses > _config.pauseLimit) _submission?.DisableScoreSubmission("ScoreRequirement", "Too many pauses");
             _logger.Info($"Pauses: {currentPauses}");
         }
