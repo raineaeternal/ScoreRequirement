@@ -3,6 +3,10 @@
 This mod allows you to disable score submission to ScoreSaber with custom parameters!
 ## Changelog
 
+## 1.0.5
+
+* Fixed one line of code that broke the pause limit
+
 ## 1.0.4
 
 * Fixed longlasting bug that disabled score submission for Accuracy regardless if the mod was active or not, if the requirement itself was active.
