@@ -3,6 +3,9 @@
 This mod allows you to disable score submission to ScoreSaber with custom parameters!
 ## Changelog
 
+## 1.0.6
+* Actually fixed the pauses disabling score submission this time - im a good developer i swear
+
 ## 1.0.5
 
 * Fixed one line of code that broke the pause limit
