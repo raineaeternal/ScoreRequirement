@@ -14,13 +14,13 @@ namespace ScoreRequirement.Managers
         private readonly IScoreController _iScoreController;
         private readonly PauseController _pauseController;
         private readonly IReadonlyBeatmapData _iReadonlyBeatmapData;
-        private Submission _submission;
+        private readonly Submission _submission;
         private AudioTimeSyncController _audioTimeSyncController;
-        private RelativeScoreAndImmediateRankCounter _relativeScoreAndImmediateRankCounter;
+        private readonly RelativeScoreAndImmediateRankCounter _relativeScoreAndImmediateRankCounter;
 
-        private int currentComboBreaks;
-        private int currentPauses;
-        private int currentMisses;
+        private int _currentComboBreaks;
+        private int _currentPauses;
+        private int _currentMisses;
 
         public SRManager(Logger logger, PluginConfig config, SongController songController, IScoreController iScoreController, PauseController pauseController, IReadonlyBeatmapData iReadonlyBeatmapData, Submission submission, AudioTimeSyncController audioTimeSyncController, RelativeScoreAndImmediateRankCounter relativeScoreAndImmediateRankCounter)
         {
@@ -36,8 +36,8 @@ namespace ScoreRequirement.Managers
             _submission = submission;
         }
 
-        public void CheckMaxCombo()
-        { 
+        private void CheckMaxCombo()
+        {
             if (!_config.isComboRequirementEnabled) return;
             if (!(_iScoreController.maxCombo > _config.minimumComboCount))
                     _submission?.DisableScoreSubmission("ScoreRequirement", "Combo was too low");
@@ -46,28 +46,21 @@ namespace ScoreRequirement.Managers
 
         private void ComboChanged(int combo)
         {
-            if (combo == 0) currentComboBreaks++;
+            if (combo == 0) _currentComboBreaks++;
         }
 
         private void CheckComboBreaks()
         {
             if (!_config.isComboBreakLimitEnabled) return;
-            if (currentComboBreaks > _config.comboBreakLimit) _submission?.DisableScoreSubmission("ScoreRequirement", "Too many combo breaks");
-            _logger.Info($"Combo breaks: {currentComboBreaks}");
+            if (_currentComboBreaks > _config.comboBreakLimit) return;
+                _submission?.DisableScoreSubmission("ScoreRequirement", "Too many combo breaks");
+            _logger.Info($"Combo breaks: {_currentComboBreaks}");
         }
-        
-        private void SongFinished()
+
+        private void DidPause()
         {
-            CheckMaxCombo();
-            CheckComboBreaks();
-            CheckPauses();
-            CheckMisses();
-            ScoreChanged();
-        }
-        
-        private void PauseChanged()
-        {
-            currentPauses++;
+            _pauseController.HandleMenuButtonTriggered();
+                _currentPauses++;
         }
 
         private void ScoreChanged()
@@ -81,44 +74,54 @@ namespace ScoreRequirement.Managers
         private void CheckPauses()
         {
             if (!_config.isPauseLimitEnabled) return;
-            if (currentPauses > _config.pauseLimit) _submission?.DisableScoreSubmission("ScoreRequirement", "Too many pauses");
-            _logger.Info($"Pauses: {currentPauses}");
+            if (_currentPauses > _config.pauseLimit) 
+                _submission?.DisableScoreSubmission("ScoreRequirement", "Too many pauses");
+            _logger.Info($"Pauses: {_currentPauses}");
         }
 
         private void NoteWasMissed(NoteData noteData, int multiplier)
         {
             if (noteData.colorType == ColorType.None) return;
-            currentMisses++;
+            _currentMisses++;
         }
 
         private void CheckMisses()
         {
             if (!_config.isMissLimitEnabled) return;
-            if (currentMisses > _config.missLimit) 
+            if (_currentMisses > _config.missLimit) 
                 _submission?.DisableScoreSubmission("ScoreRequirement", "Too many misses");
-            _logger.Info($"Misses: {currentMisses}");
+            _logger.Info($"Misses: {_currentMisses}");
+        }
+
+        private void SongFinished()
+        {
+            CheckMaxCombo();
+            CheckComboBreaks();
+            CheckPauses();
+            CheckMisses();
+            ScoreChanged();
         }
 
         public void Initialize()
         {
-            currentComboBreaks = 0;
-            currentPauses = 0;
-            currentMisses = 0;
-
-            if (_config.isSREnabled) _songController.songDidFinishEvent += SongFinished;
+            _currentComboBreaks = 0;
+            _currentPauses = 0;
+            _currentMisses = 0;
+            
             if (_config.isAccRequirementEnabled) _songController.songDidFinishEvent += ScoreChanged;
             if (_config.isMissLimitEnabled) _iScoreController.noteWasMissedEvent += NoteWasMissed;
             if (_config.isComboBreakLimitEnabled) _iScoreController.comboDidChangeEvent += ComboChanged;
-            if (_config.isPauseLimitEnabled) _pauseController.didPauseEvent += PauseChanged;
+            if (_config.isPauseLimitEnabled) _pauseController.didPauseEvent += DidPause;
+            if (_config.isSREnabled) _songController.songDidFinishEvent += SongFinished;
         }
 
         public void Dispose()
         {
-            if (_config.isSREnabled) _songController.songDidFinishEvent -= SongFinished;
             if (_config.isAccRequirementEnabled) _songController.songDidFinishEvent -= ScoreChanged;
             if (_config.isMissLimitEnabled) _iScoreController.noteWasMissedEvent -= NoteWasMissed;
             if (_config.isComboBreakLimitEnabled) _iScoreController.comboDidChangeEvent -= ComboChanged;
-            if (_config.isPauseLimitEnabled) _pauseController.didPauseEvent -= PauseChanged;
+            if (_config.isPauseLimitEnabled) _pauseController.didPauseEvent -= DidPause;
+            if (_config.isSREnabled) _songController.songDidFinishEvent -= SongFinished;
         }
     }
 }
