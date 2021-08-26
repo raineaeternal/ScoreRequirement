@@ -52,7 +52,7 @@ namespace ScoreRequirement.Managers
         private void CheckComboBreaks()
         {
             if (!_config.isComboBreakLimitEnabled) return;
-            if (_currentComboBreaks > _config.comboBreakLimit) return;
+            if (_currentComboBreaks > _config.comboBreakLimit)
                 _submission?.DisableScoreSubmission("ScoreRequirement", "Too many combo breaks");
             _logger.Info($"Combo breaks: {_currentComboBreaks}");
         }
