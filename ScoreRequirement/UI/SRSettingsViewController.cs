@@ -42,13 +42,13 @@ namespace ScoreRequirement.UI
         private void DidChangeBeatmap(LevelCollectionNavigationController navigationController, StandardLevelDetailViewController.ContentType contentType)
         {
             if (contentType != StandardLevelDetailViewController.ContentType.OwnedAndReady) return;
-                comboSlider.slider.maxValue = navigationController.selectedDifficultyBeatmap.beatmapData.cuttableNotesType;
+                comboSlider.slider.maxValue = navigationController.selectedDifficultyBeatmap.beatmapData.cuttableNotesCount;
                 ComboRequirement = 0;
         }
         
         private void LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent(LevelCollectionNavigationController _, IDifficultyBeatmap beatMap)
         {
-            comboSlider.slider.maxValue = beatMap.beatmapData.cuttableNotesType;
+            comboSlider.slider.maxValue = beatMap.beatmapData.cuttableNotesCount;
                 ComboRequirement = 0;
         }
 
