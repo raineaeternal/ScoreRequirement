@@ -3,9 +3,9 @@
   "id": "ScoreRequirement",
   "name": "ScoreRequirement",
   "author": "Raine",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "This mod allows you to disable score submission to ScoreSaber with set parameters",
-  "gameVersion": "1.17.0",
+  "gameVersion": "1.17.1",
   "dependsOn": {
     "BSIPA": "^4.2.0",
     "BeatSaberMarkupLanguage": "^1.5.5",

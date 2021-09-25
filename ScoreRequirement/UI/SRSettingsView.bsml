@@ -27,9 +27,9 @@
     </settings-container>
     
     <vertical pad-top="40" pad-left="60">
-        <text text="ScoreRequirement | 1.0.7" />
+        <text text="ScoreRequirement | 1.0.8" />
     </vertical>
-    
+  
     <button text="&lt;" direction="left" id="leftButton" />
     <button text="&gt;" direction="right" id="rightButton" />
     
