@@ -22,15 +22,13 @@ namespace ScoreRequirement.UI
     {
         private PluginConfig _config;
         private LevelCollectionNavigationController _levelCollectionNavigationController;
-        private StandardLevelDetailViewController _levelDetail;
         private readonly UBinder<Plugin, PluginMetadata> _metadata;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, StandardLevelDetailViewController levelDetail, UBinder<Plugin, PluginMetadata> metadata)
+        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, UBinder<Plugin, PluginMetadata> metadata)
         {
             _config = config;
-            _levelDetail = levelDetail;
             _metadata = metadata;
             _levelCollectionNavigationController = levelCollectionNavigationController;
         }
@@ -58,7 +56,8 @@ namespace ScoreRequirement.UI
 
         public void Dispose()
         {
-            GameplaySetup.instance.RemoveTab("ScoreRequirement");
+            if (GameplaySetup.instance != null)
+                GameplaySetup.instance.RemoveTab("ScoreRequirement");
             _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
         }
 
