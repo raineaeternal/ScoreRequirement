@@ -27,7 +27,7 @@
     </settings-container>
     
     <vertical pad-top="40" pad-left="60">
-        <text value="~metadata" />
+        <text text="~metadata" />
     </vertical>
     
     <button text="&lt;" direction="left" id="leftButton" />
