@@ -1,8 +1,11 @@
-﻿using IPA;
+﻿using Hive.Versioning;
+using IPA;
 using SiraUtil.Zenject;
 using Zenject;
 using IPALogger = IPA.Logging.Logger;
 using IPA.Config.Stores;
+using IPA.Loader;
+using JetBrains.Annotations;
 using ScoreRequirement.Configuration;
 using ScoreRequirement.Installers;
 using Config = IPA.Config.Config;
@@ -13,14 +16,20 @@ namespace ScoreRequirement
     public class Plugin
     {
         private PluginConfig _config;
+
+        [CanBeNull]
+        private static PluginMetadata _metadata; 
+
+        public static string Name => _metadata?.Name!;
+        public static Version Version => _metadata?.HVersion!;
         
-        // This zenjects the MenuInstaller to the BSML Mod Tab
         [Init]
-        public void Init(Zenjector zenjector, Config config, IPALogger logger)
+        public void Init(Zenjector zenjector, Config config, IPALogger logger, PluginMetadata pluginMetadata)
         {
+            _metadata = pluginMetadata;
             _config = config.Generated<PluginConfig>();
             
-            zenjector.OnMenu<SRMenuInstaller>().WithParameters(logger, _config);
+            zenjector.OnMenu<SRMenuInstaller>().WithParameters(logger, _config, new UBinder<Plugin, PluginMetadata>(_metadata));
             zenjector.OnGame<SRGameInstaller>().WithParameters(logger, _config).ShortCircuitForMultiplayer().ShortCircuitForTutorial().ShortCircuitForCampaign();
         }
 

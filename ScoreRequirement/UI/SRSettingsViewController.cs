@@ -7,6 +7,7 @@ using BeatSaberMarkupLanguage.Components.Settings;
 using BeatSaberMarkupLanguage.GameplaySetup;
 using HMUI;
 using IPA.Config.Data;
+using IPA.Loader;
 using JetBrains.Annotations;
 using ScoreRequirement.Configuration;
 using ScoreRequirement.Managers;
@@ -21,13 +22,15 @@ namespace ScoreRequirement.UI
         private PluginConfig _config;
         private LevelCollectionNavigationController _levelCollectionNavigationController;
         private StandardLevelDetailViewController _levelDetail;
+        private readonly PluginMetadata _metadata;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, StandardLevelDetailViewController levelDetail)
+        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, StandardLevelDetailViewController levelDetail, PluginMetadata metadata)
         {
             _config = config;
             _levelDetail = levelDetail;
+            _metadata = metadata;
             _levelCollectionNavigationController = levelCollectionNavigationController;
         }
 
@@ -135,6 +138,14 @@ namespace ScoreRequirement.UI
         #endregion
 
         #region Values
+
+        [UIValue("value")]
+        private void MetaData()
+        {
+            get => _metadata.Name
+            get => _metadata.HVersion
+        }
+        
         
         [UIValue("comboRequirement")]
         private int ComboRequirement
