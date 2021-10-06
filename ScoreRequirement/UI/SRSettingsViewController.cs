@@ -7,10 +7,12 @@ using BeatSaberMarkupLanguage.Components.Settings;
 using BeatSaberMarkupLanguage.GameplaySetup;
 using HMUI;
 using IPA.Config.Data;
+using IPA.Loader;
 using JetBrains.Annotations;
 using ScoreRequirement.Configuration;
 using ScoreRequirement.Managers;
 using ScoreRequirement.UI.Components;
+using SiraUtil.Zenject;
 using UnityEngine;
 using Zenject;
 
@@ -20,14 +22,14 @@ namespace ScoreRequirement.UI
     {
         private PluginConfig _config;
         private LevelCollectionNavigationController _levelCollectionNavigationController;
-        private StandardLevelDetailViewController _levelDetail;
+        private readonly UBinder<Plugin, PluginMetadata> _metadata;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, StandardLevelDetailViewController levelDetail)
+        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, UBinder<Plugin, PluginMetadata> metadata)
         {
             _config = config;
-            _levelDetail = levelDetail;
+            _metadata = metadata;
             _levelCollectionNavigationController = levelCollectionNavigationController;
         }
 
@@ -54,7 +56,8 @@ namespace ScoreRequirement.UI
 
         public void Dispose()
         {
-            GameplaySetup.instance.RemoveTab("ScoreRequirement");
+            if (GameplaySetup.instance != null)
+                GameplaySetup.instance.RemoveTab("ScoreRequirement");
             _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
         }
 
@@ -135,6 +138,9 @@ namespace ScoreRequirement.UI
         #endregion
 
         #region Values
+
+        [UIValue("metadata")] 
+        internal string MetadataName => $"{_metadata.Value.Name} | {_metadata.Value.HVersion}";
         
         [UIValue("comboRequirement")]
         private int ComboRequirement
