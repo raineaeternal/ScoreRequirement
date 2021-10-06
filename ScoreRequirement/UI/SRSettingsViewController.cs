@@ -140,8 +140,8 @@ namespace ScoreRequirement.UI
 
         #region Values
 
-        [UIValue("version")] 
-        internal string MetadataName => $"{_metadata} | {_metadata.HVersion}";
+        [UIValue("metadata")] 
+        internal string MetadataName => $"{_metadata.Value.Name} | {_metadata.Value.HVersion}";
         
         [UIValue("comboRequirement")]
         private int ComboRequirement

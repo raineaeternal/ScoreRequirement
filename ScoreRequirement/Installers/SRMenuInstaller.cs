@@ -4,6 +4,7 @@ using ScoreRequirement.Configuration;
 using Zenject;
 using SiraUtil;
 using ScoreRequirement.UI;
+using SiraUtil.Zenject;
 
 namespace ScoreRequirement.Installers
 {
@@ -11,9 +12,9 @@ namespace ScoreRequirement.Installers
     {
         private readonly Logger _logger;
         private readonly PluginConfig _config;
-        private readonly PluginMetadata _metadata;
+        private readonly UBinder<Plugin, PluginMetadata> _metadata;
 
-        internal SRMenuInstaller(Logger logger, PluginConfig config, PluginMetadata metadata)
+        internal SRMenuInstaller(Logger logger, PluginConfig config, UBinder<Plugin, PluginMetadata> metadata)
         {
             _logger = logger;
             _config = config;
