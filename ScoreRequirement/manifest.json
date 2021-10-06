@@ -3,7 +3,7 @@
   "id": "ScoreRequirement",
   "name": "ScoreRequirement",
   "author": "Raine",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "This mod allows you to disable score submission to ScoreSaber with set parameters",
   "gameVersion": "1.17.1",
   "dependsOn": {
