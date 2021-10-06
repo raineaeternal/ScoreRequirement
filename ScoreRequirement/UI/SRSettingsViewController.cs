@@ -12,6 +12,7 @@ using JetBrains.Annotations;
 using ScoreRequirement.Configuration;
 using ScoreRequirement.Managers;
 using ScoreRequirement.UI.Components;
+using SiraUtil.Zenject;
 using UnityEngine;
 using Zenject;
 
@@ -22,11 +23,11 @@ namespace ScoreRequirement.UI
         private PluginConfig _config;
         private LevelCollectionNavigationController _levelCollectionNavigationController;
         private StandardLevelDetailViewController _levelDetail;
-        private readonly PluginMetadata _metadata;
+        private readonly UBinder<Plugin, PluginMetadata> _metadata;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, StandardLevelDetailViewController levelDetail, PluginMetadata metadata)
+        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, StandardLevelDetailViewController levelDetail, UBinder<Plugin, PluginMetadata> metadata)
         {
             _config = config;
             _levelDetail = levelDetail;
@@ -139,13 +140,8 @@ namespace ScoreRequirement.UI
 
         #region Values
 
-        [UIValue("value")]
-        private void MetaData()
-        {
-            get => _metadata.Name
-            get => _metadata.HVersion
-        }
-        
+        [UIValue("version")] 
+        internal string MetadataName => $"{_metadata} | {_metadata.HVersion}";
         
         [UIValue("comboRequirement")]
         private int ComboRequirement
