@@ -3,6 +3,9 @@
 This mod allows you to disable score submission to ScoreSaber with custom parameters!
 ## Changelog
 
+## 1.0.10
+* Internal reworks with bugfixes
+
 ## 1.0.9
 * Better handling when disposing, Nullchecking for the GameplaySetup tab this time around.
 * Changed to dynamically fetching version and name of plugin for UI
