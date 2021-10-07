@@ -75,6 +75,7 @@ namespace ScoreRequirement.Managers
 			if (_relativeScoreAndImmediateRankCounter.relativeScore < _config.accRequirement / 100f)
 			{
 				_submission.DisableScoreSubmission("ScoreRequirement", "Accuracy was too low");
+				_logger.Notice("Disabling Score submission.");
 			}
 
 			_logger.Info($"Current acc is: {_relativeScoreAndImmediateRankCounter.relativeScore} of the required {_config.accRequirement}");
@@ -115,6 +116,7 @@ namespace ScoreRequirement.Managers
 			if (!(_iScoreController.maxCombo > _config.minimumComboCount))
 			{
 				_submission?.DisableScoreSubmission("ScoreRequirement", "Combo was too low");
+				_logger.Notice("Disabling Score submission.");
 			}
 		}
 		
@@ -128,6 +130,7 @@ namespace ScoreRequirement.Managers
 			if (currentComboBreaks > _config.comboBreakLimit)
 			{
 				_submission?.DisableScoreSubmission("ScoreRequirement", "Too many combo breaks");
+				_logger.Notice("Disabling Score submission.");
 			}
 
 			_logger.Info($"Combo breaks: {currentComboBreaks}");
@@ -143,6 +146,7 @@ namespace ScoreRequirement.Managers
 			if (currentPauses > _config.pauseLimit)
 			{
 				_submission?.DisableScoreSubmission("ScoreRequirement", "Too many pauses");
+				_logger.Notice("Disabling Score submission.");
 			}
 
 			_logger.Info($"Pauses: {currentPauses}");
@@ -158,6 +162,7 @@ namespace ScoreRequirement.Managers
 			if (currentMisses > _config.missLimit)
 			{
 				_submission?.DisableScoreSubmission("ScoreRequirement", "Too many misses");
+				_logger.Notice("Disabling Score submission.");
 			}
 
 			_logger.Info($"Misses: {currentMisses}");
