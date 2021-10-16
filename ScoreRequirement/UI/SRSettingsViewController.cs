@@ -56,7 +56,7 @@ namespace ScoreRequirement.UI
 
         public void Dispose()
         {
-            if (GameplaySetup.instance != null)
+            if (GameplaySetup.IsSingletonAvailable)
                 GameplaySetup.instance.RemoveTab("ScoreRequirement");
             _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
         }
