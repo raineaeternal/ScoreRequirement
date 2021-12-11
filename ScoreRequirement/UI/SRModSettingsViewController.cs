@@ -47,7 +47,7 @@ namespace ScoreRequirement.UI
         [UIValue("accStepText")]
         internal string AccStepText => $"How much do you want it to step at a time? \n Default is 0.01";
         
-        //[UIValue("metadata")] 
-        //internal string MetadataName => $"{_metadata.Name} | {_metadata.HVersion}";
+        [UIValue("metadata")] 
+        internal string MetadataName => $"{_metadata.Name} | {_metadata.HVersion}";
     }
 }

@@ -21,11 +21,11 @@ namespace ScoreRequirement.UI
     {
         private PluginConfig _config;
         private LevelCollectionNavigationController _levelCollectionNavigationController;
-        private readonly UBinder<Plugin, PluginMetadata> _metadata;
+        private readonly PluginMetadata _metadata;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, UBinder<Plugin, PluginMetadata> metadata)
+        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, PluginMetadata metadata)
         {
             _config = config;
             _metadata = metadata;
@@ -139,7 +139,7 @@ namespace ScoreRequirement.UI
         #region Values
 
         [UIValue("metadata")] 
-        internal string MetadataName => $"{_metadata.Value.Name} | {_metadata.Value.HVersion}";
+        internal string MetadataName => $"{_metadata.Name} | {_metadata.HVersion}";
         
         [UIValue("comboRequirement")]
         private int ComboRequirement

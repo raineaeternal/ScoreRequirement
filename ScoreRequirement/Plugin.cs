@@ -13,7 +13,7 @@ using Config = IPA.Config.Config;
 
 namespace ScoreRequirement
 {
-    [Plugin(RuntimeOptions.DynamicInit)]
+    [Plugin(RuntimeOptions.DynamicInit), NoEnableDisable]
     public class Plugin
     {
         private PluginConfig _config;
@@ -26,11 +26,6 @@ namespace ScoreRequirement
             zenjector.UseLogger(logger);
             zenjector.Install<SRMenuInstaller>(Location.Menu, _config);
             zenjector.Install<SRGameInstaller>(Location.StandardPlayer);
-        }
-
-        [OnEnable, OnDisable]
-        public void OnStateChanged()
-        {
         }
     }
 }

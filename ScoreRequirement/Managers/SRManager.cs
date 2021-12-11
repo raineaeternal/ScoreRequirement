@@ -1,7 +1,7 @@
 ﻿using System;
 using IPA.Logging;
 using ScoreRequirement.Configuration;
-using SiraUtil.Services;
+using SiraUtil.Submissions;
 using Zenject;
 
 namespace ScoreRequirement.Managers
