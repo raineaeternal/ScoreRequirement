@@ -97,6 +97,9 @@
     <ItemGroup>
         <EmbeddedResource Include="manifest.json" />
         <EmbeddedResource Include="UI\*.bsml" />
+        <EmbeddedResource Include="UI\BSML\SRSettingsView.bsml" />
+        <None Remove="UI\BSML\SRModSettingsView.bsml" />
+        <EmbeddedResource Include="UI\BSML\SRModSettingsView.bsml" />
     </ItemGroup>
 
     <ItemGroup>

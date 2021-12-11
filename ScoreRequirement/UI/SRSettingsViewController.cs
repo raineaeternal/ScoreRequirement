@@ -7,10 +7,11 @@ using BeatSaberMarkupLanguage.Components.Settings;
 using BeatSaberMarkupLanguage.GameplaySetup;
 using HMUI;
 using IPA.Config.Data;
+using IPA.Loader;
 using JetBrains.Annotations;
 using ScoreRequirement.Configuration;
 using ScoreRequirement.Managers;
-using ScoreRequirement.UI.Components;
+using SiraUtil.Zenject;
 using UnityEngine;
 using Zenject;
 
@@ -20,14 +21,14 @@ namespace ScoreRequirement.UI
     {
         private PluginConfig _config;
         private LevelCollectionNavigationController _levelCollectionNavigationController;
-        private StandardLevelDetailViewController _levelDetail;
+        private readonly UBinder<Plugin, PluginMetadata> _metadata;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, StandardLevelDetailViewController levelDetail)
+        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, UBinder<Plugin, PluginMetadata> metadata)
         {
             _config = config;
-            _levelDetail = levelDetail;
+            _metadata = metadata;
             _levelCollectionNavigationController = levelCollectionNavigationController;
         }
 
@@ -54,7 +55,8 @@ namespace ScoreRequirement.UI
 
         public void Dispose()
         {
-            GameplaySetup.instance.RemoveTab("ScoreRequirement");
+            if (GameplaySetup.instance != null)
+                GameplaySetup.instance.RemoveTab("ScoreRequirement");
             _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
         }
 
@@ -135,6 +137,9 @@ namespace ScoreRequirement.UI
         #endregion
 
         #region Values
+
+        [UIValue("metadata")] 
+        internal string MetadataName => $"{_metadata.Value.Name} | {_metadata.Value.HVersion}";
         
         [UIValue("comboRequirement")]
         private int ComboRequirement
@@ -190,46 +195,6 @@ namespace ScoreRequirement.UI
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MaxMissCount)));
             } 
         }
-        #endregion
-
-        #region UIComponents
-        
-        [UIComponent("leftButton")]
-        protected readonly RectTransform leftButton;
-        
-        [UIComponent("rightButton")]
-        protected readonly RectTransform rightButton;
-        
-        [UIComponent("comboSlider")] 
-        private SliderSetting comboSlider;
-
-        [UIComponent("accRequirementSlider")] 
-        protected readonly SliderSetting accSlider;
-        
-        [UIComponent("breakSlider")] 
-        protected readonly SliderSetting breakSlider;
-
-        [UIComponent("pauseLimitSlider")] 
-        protected readonly SliderSetting pauseSlider;
-        
-        [UIComponent("missSlider")] 
-        protected readonly SliderSetting missSlider;
-        
-        public static readonly int universalInt = 1;
-        public static readonly float accStep = 0.01f;
-
-        [UIAction("#post-parse")]
-        protected void PostParse()
-        { 
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), accSlider, accStep);
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), comboSlider, universalInt);
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), pauseSlider, universalInt);
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), breakSlider, universalInt);
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), missSlider, universalInt);
-            GameObject.Destroy(leftButton.gameObject);
-            GameObject.Destroy(rightButton.gameObject);
-        }
-        
         #endregion
     }
 }
