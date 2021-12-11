@@ -26,7 +26,8 @@ namespace ScoreRequirement.UI
 
         public void Initialize()
         {
-            GameplaySetup.instance.AddTab("ScoreRequirement", "ScoreRequirement.UI.SRSettingsView.bsml", this);
+            GameplaySetup.instance.AddTab(_metadata.Name, "ScoreRequirement.UI.BSML.SRSettingsView.bsml", this);
+
             _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent -= LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
             _levelCollectionNavigationController.didChangeDifficultyBeatmapEvent += LevelCollectionNavigationControllerOndidChangeDifficultyBeatmapEvent;
             _levelCollectionNavigationController.didChangeLevelDetailContentEvent += DidChangeBeatmap;
