@@ -1,34 +1,26 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using SiraUtil.Tools;
 using BeatSaberMarkupLanguage.Attributes;
-using BeatSaberMarkupLanguage.Components.Settings;
 using BeatSaberMarkupLanguage.GameplaySetup;
-using HMUI;
-using IPA.Config.Data;
 using IPA.Loader;
-using JetBrains.Annotations;
 using ScoreRequirement.Configuration;
-using ScoreRequirement.Managers;
 using SiraUtil.Zenject;
-using UnityEngine;
 using Zenject;
 
 namespace ScoreRequirement.UI
 {
-    public class SRSettingsViewController : IInitializable, IDisposable, INotifyPropertyChanged
+    internal class SRSettingsViewController : IInitializable, IDisposable, INotifyPropertyChanged
     {
-        private PluginConfig _config;
-        private LevelCollectionNavigationController _levelCollectionNavigationController;
+        private readonly PluginConfig _config;
+        private readonly LevelCollectionNavigationController _levelCollectionNavigationController;
         private readonly PluginMetadata _metadata;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, PluginMetadata metadata)
+        public SRSettingsViewController(PluginConfig config, LevelCollectionNavigationController levelCollectionNavigationController, UBinder<Plugin, PluginMetadata> metadata)
         {
             _config = config;
-            _metadata = metadata;
+            _metadata = metadata.Value;
             _levelCollectionNavigationController = levelCollectionNavigationController;
         }
 

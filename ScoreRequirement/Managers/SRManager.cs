@@ -1,6 +1,6 @@
 ﻿using System;
-using IPA.Logging;
 using ScoreRequirement.Configuration;
+using SiraUtil.Logging;
 using SiraUtil.Submissions;
 using Zenject;
 
@@ -8,7 +8,7 @@ namespace ScoreRequirement.Managers
 {
     internal class SRManager : IInitializable, IDisposable
     {
-        private readonly Logger _logger;
+        private readonly SiraLog _logger;
         private readonly PluginConfig _config;
         private readonly SongController _songController;
         private readonly IScoreController _iScoreController;
@@ -22,7 +22,9 @@ namespace ScoreRequirement.Managers
         private int currentPauses;
         private int currentMisses;
 
-        public SRManager(Logger logger, PluginConfig config, SongController songController, IScoreController iScoreController, PauseController pauseController, IReadonlyBeatmapData iReadonlyBeatmapData, Submission submission, AudioTimeSyncController audioTimeSyncController, RelativeScoreAndImmediateRankCounter relativeScoreAndImmediateRankCounter)
+        public SRManager(SiraLog logger, PluginConfig config, SongController songController, IScoreController iScoreController, PauseController pauseController,
+            IReadonlyBeatmapData iReadonlyBeatmapData, Submission submission, AudioTimeSyncController audioTimeSyncController,
+            RelativeScoreAndImmediateRankCounter relativeScoreAndImmediateRankCounter)
         {
             _config = config;
             _logger = logger;
@@ -39,8 +41,8 @@ namespace ScoreRequirement.Managers
         public void CheckMaxCombo()
         {
             if (!_config.isComboRequirementEnabled) return;
-                _logger.Info($"{_iScoreController.maxCombo} of {_config.minimumComboCount} has been reached!");
-            
+            _logger.Info($"{_iScoreController.maxCombo} of {_config.minimumComboCount} has been reached!");
+
             if (!(_iScoreController.maxCombo > _config.minimumComboCount))
                 _submission?.DisableScoreSubmission("ScoreRequirement", "Combo was too low");
         }
@@ -56,7 +58,7 @@ namespace ScoreRequirement.Managers
             if (currentComboBreaks > _config.comboBreakLimit) _submission?.DisableScoreSubmission("ScoreRequirement", "Too many combo breaks");
             _logger.Info($"Combo breaks: {currentComboBreaks}");
         }
-        
+
         private void SongFinished()
         {
             CheckMaxCombo();
@@ -64,7 +66,7 @@ namespace ScoreRequirement.Managers
             CheckPauses();
             CheckMisses();
         }
-        
+
         private void PauseChanged()
         {
             currentPauses++;
@@ -75,7 +77,7 @@ namespace ScoreRequirement.Managers
             if (!_config.isAccRequirementEnabled) return;
             if (_relativeScoreAndImmediateRankCounter.relativeScore < _config.accRequirement / 100f)
                 _submission.DisableScoreSubmission("ScoreRequirement", "Accuracy was too low");
-            _logger.Info($"Current acc is: {_relativeScoreAndImmediateRankCounter.relativeScore} of the required {_config.accRequirement}"); 
+            _logger.Info($"Current acc is: {_relativeScoreAndImmediateRankCounter.relativeScore} of the required {_config.accRequirement}");
         }
 
         private void CheckPauses()
@@ -94,7 +96,7 @@ namespace ScoreRequirement.Managers
         private void CheckMisses()
         {
             if (!_config.isMissLimitEnabled) return;
-            if (currentMisses > _config.missLimit) 
+            if (currentMisses > _config.missLimit)
                 _submission?.DisableScoreSubmission("ScoreRequirement", "Too many misses");
             _logger.Info($"Misses: {currentMisses}");
         }
@@ -123,4 +125,5 @@ namespace ScoreRequirement.Managers
             if (_config.isPauseLimitEnabled) _pauseController.didPauseEvent -= PauseChanged;
 
         }
+    }
 }

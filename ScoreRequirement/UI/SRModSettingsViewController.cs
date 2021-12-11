@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Data;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Settings;
 using IPA.Loader;
@@ -10,17 +9,17 @@ using Zenject;
 
 namespace ScoreRequirement.UI
 {
-    public class SRModSettingsViewController : IInitializable, IDisposable, INotifyPropertyChanged
+    internal class SRModSettingsViewController : IInitializable, IDisposable, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged; 
         
         private readonly PluginConfig _config;
         private readonly PluginMetadata _metadata;
 
-        public SRModSettingsViewController(PluginConfig config, PluginMetadata metadata)
+        public SRModSettingsViewController(PluginConfig config, UBinder<Plugin, PluginMetadata> metadata)
         {
             _config = config;
-            _metadata = metadata;
+            _metadata = metadata.Value;
         }
 
         public void Initialize()

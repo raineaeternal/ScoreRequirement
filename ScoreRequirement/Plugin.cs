@@ -1,31 +1,25 @@
-﻿using Hive.Versioning;
-using IPA;
+﻿using IPA;
 using SiraUtil.Zenject;
-using Zenject;
 using IPALogger = IPA.Logging.Logger;
 using IPA.Config.Stores;
-using IPA.Loader;
-using JetBrains.Annotations;
 using ScoreRequirement.Configuration;
 using ScoreRequirement.Installers;
-using ScoreRequirement.UI;
 using Config = IPA.Config.Config;
 
 namespace ScoreRequirement
 {
-    [Plugin(RuntimeOptions.DynamicInit), NoEnableDisable]
-    public class Plugin
-    {
-        private PluginConfig _config;
+	[Plugin(RuntimeOptions.DynamicInit), NoEnableDisable]
+	public class Plugin
+	{
+		[Init]
+		public void Init(Zenjector zenjector, Config config, IPALogger logger)
+		{
+			zenjector.UseLogger(logger);
+			zenjector.UseMetadataBinder<Plugin>();
 
-        [Init]
-        public void Init(Zenjector zenjector, Config config, IPALogger logger, PluginMetadata pluginMetadata)
-        {
-            _config = config.Generated<PluginConfig>();
-
-            zenjector.UseLogger(logger);
-            zenjector.Install<SRMenuInstaller>(Location.Menu, _config);
-            zenjector.Install<SRGameInstaller>(Location.StandardPlayer);
-        }
-    }
+			zenjector.Install<SRAppInstaller>(Location.App, config.Generated<PluginConfig>());
+			zenjector.Install<SRMenuInstaller>(Location.Menu);
+			zenjector.Install<SRGameInstaller>(Location.StandardPlayer);
+		}
+	}
 }
