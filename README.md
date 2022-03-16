@@ -1,5 +1,8 @@
 # ScoreRequirement
 
+### Abandoned.
+I don't have the motivation to work on this, the repository will be left in a public archive for anyone to look at, and possibly update, should they want to.
+
 This mod allows you to disable score submission to ScoreSaber with custom parameters!
 ## Changelog
 
